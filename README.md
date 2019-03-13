@@ -1,10 +1,10 @@
 # Kinetica Python UDF API Tutorial #
 
-This project contains the **6.2** version of the **Python UDF API Tutorial**.
+This project contains the **7.0** version of the **Python UDF API Tutorial**.
 
-This guide exists on-line at:  [Kinetica Python UDF API Tutorial](http://www.kinetica.com/docs/6.2/udf/python/tutorial.html)
+This guide exists on-line at:  [Kinetica Python UDF API Tutorial](http://www.kinetica.com/docs/udf/python/tutorial.html)
 
-More information can be found at:  [Kinetica Documentation](http://www.kinetica.com/docs/6.2/index.html)
+More information can be found at:  [Kinetica Documentation](http://www.kinetica.com/docs/index.html)
 
 -----
 
@@ -27,18 +27,18 @@ this exercise is purely to demonstrate the many facets of the *UDF* API.
 
 ## References
 
-* [Python UDF Reference](https://www.kinetica.com/docs/6.2/udf/python/writing.html)
+* [Python UDF Reference](https://www.kinetica.com/docs/udf/python/writing.html)
   -- detailed description of the entire *UDF* API
-* [Running UDFs](https://www.kinetica.com/docs/6.2/udf/python/running.html)
+* [Running UDFs](https://www.kinetica.com/docs/udf/python/running.html)
   -- detailed description on running *Python* UDFs
-* [Example UDFs](https://www.kinetica.com/docs/6.2/udf/python/examples.html)
+* [Example UDFs](https://www.kinetica.com/docs/udf/python/examples.html)
   -- example *UDFs* written in *Python*
 
 
 ## Prerequisites
 
 The general prerequisites for using *UDFs* in *Kinetica* can be found on
-the [UDF Implementation](https://www.kinetica.com/docs/6.2/udf/index.html) page.
+the [UDF Implementation](https://www.kinetica.com/docs/udf/index.html) page.
 
 
 ### Data Files
@@ -68,19 +68,19 @@ either *Python* 2.7 (or greater) or ``pip``.
 
 In the desired directory, run the following but be sure to replace
 ``kinetica-version`` with the name of the installed Kinetica version, e.g.,
-``v6.2.0``:
+``v7.0``:
 
     git clone -b release/<kinetica-version> --single-branch https://github.com/kineticadb/kinetica-tutorial-python-udf-api.git
 
 In the same directory, run the following but be sure to replace
 ``kinetica-version`` with the name of the installed Kinetica version, e.g.,
-``v6.2.0``:
+``v7.0``:
 
     git clone -b release/<kinetica-version> --single-branch https://github.com/kineticadb/kinetica-udf-api-python.git
 
 In the same directory, run the following but be sure to replace
 ``kinetica-version`` with the name of the installed Kinetica version, e.g.,
-``v6.2.0``:
+``v7.0``:
 
     git clone -b release/<kinetica-version> --single-branch https://github.com/kineticadb/kinetica-api-python.git
 
@@ -96,17 +96,13 @@ Back out one directory level:
 
     cd ..
 
-**NOTE:**  To install the *Kinetica* API via PyPI instead:
-
-    pip install gpudb --upgrade
-
 
 ## Development
 
-Refer to the [Python UDF API Reference](https://www.kinetica.com/docs/6.2/udf/python/writing.html)
+Refer to the [Python UDF API Reference](https://www.kinetica.com/docs/udf/python/writing.html)
 page to begin writing your own *UDF(s)* or use the *UDF* already provided with
 the *Python UDF* tutorial repository. The steps below outline using the
-[UDF Simulator](https://www.kinetica.com/docs/6.2/udf/simulating_udfs.html) with
+[UDF Simulator](https://www.kinetica.com/docs/udf/simulating_udfs.html) with
 the *UDF* included with the *Python UDF* tutorial repository.
 
 Add the *Python UDF* API directory to the ``PYTHONPATH``:
@@ -133,7 +129,7 @@ instance requires authentication:
          [-U <kinetica-user> -P <kinetica-pass>]
 
 For instance:
-   
+
     python ../kinetica-api-python/examples/udfsim.py execute -d \
          -i udf_tc_py_in_table -o udf_tc_py_out_table \
          -K http://127.0.0.1:9191 \
