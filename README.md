@@ -2,9 +2,9 @@
 
 This project contains the **7.0** version of the **Python UDF API Tutorial**.
 
-This guide exists on-line at:  [Kinetica Python UDF API Tutorial](http://www.kinetica.com/docs/udf/python/tutorial.html)
+This guide exists on-line at:  [Kinetica Python UDF API Tutorial](http://www.kinetica.com/docs/7.1/udf/python/tutorial.html)
 
-More information can be found at:  [Kinetica Documentation](http://www.kinetica.com/docs/index.html)
+More information can be found at:  [Kinetica Documentation](http://www.kinetica.com/docs/7.1/index.html)
 
 -----
 
@@ -27,26 +27,26 @@ this exercise is purely to demonstrate the many facets of the *UDF* API.
 
 ## References
 
-* [Python UDF Reference](https://www.kinetica.com/docs/udf/python/writing.html)
+* [Python UDF Reference](https://www.kinetica.com/docs/7.1/udf/python/writing.html)
   -- detailed description of the entire *UDF* API
-* [Running UDFs](https://www.kinetica.com/docs/udf/python/running.html)
+* [Running UDFs](https://www.kinetica.com/docs/7.1/udf/python/running.html)
   -- detailed description on running *Python* UDFs
-* [Example UDFs](https://www.kinetica.com/docs/udf/python/examples.html)
+* [Example UDFs](https://www.kinetica.com/docs/7.1/udf/python/examples.html)
   -- example *UDFs* written in *Python*
 
 
 ## Prerequisites
 
 The general prerequisites for using *UDFs* in *Kinetica* can be found on
-the [UDF Implementation](https://www.kinetica.com/docs/udf/index.html) page.
+the [UDF Implementation](https://www.kinetica.com/docs/7.1/udf/index.html) page.
 
 
 ### Data Files
 
 There are four files associated with the *Python UDF* tutorial:
 
-* an initialization script, ``udf_tc_py_init.py``, that creates the input and
-  output tables
+* an initialization script, ``udf_tc_py_init.py``, that creates the schema and
+  input & output tables
 * a UDF, ``udf_tc_py_proc.py``, that contains a table copying example
 * an execute script, ``udf_tc_py_exec.py`` that creates the proc and executes
   it
@@ -68,19 +68,19 @@ either *Python* 2.7 (or greater) or ``pip``.
 
 In the desired directory, run the following but be sure to replace
 ``kinetica-version`` with the name of the installed Kinetica version, e.g.,
-``v7.0``:
+``v7.1``:
 
     git clone -b release/<kinetica-version> --single-branch https://github.com/kineticadb/kinetica-tutorial-python-udf-api.git
 
 In the same directory, run the following but be sure to replace
 ``kinetica-version`` with the name of the installed Kinetica version, e.g.,
-``v7.0``:
+``v7.1``:
 
     git clone -b release/<kinetica-version> --single-branch https://github.com/kineticadb/kinetica-udf-api-python.git
 
 In the same directory, run the following but be sure to replace
 ``kinetica-version`` with the name of the installed Kinetica version, e.g.,
-``v7.0``:
+``v7.1``:
 
     git clone -b release/<kinetica-version> --single-branch https://github.com/kineticadb/kinetica-api-python.git
 
@@ -99,10 +99,10 @@ Back out one directory level:
 
 ## Development
 
-Refer to the [Python UDF API Reference](https://www.kinetica.com/docs/udf/python/writing.html)
+Refer to the [Python UDF API Reference](https://www.kinetica.com/docs/7.1/udf/python/writing.html)
 page to begin writing your own *UDF(s)* or use the *UDF* already provided with
 the *Python UDF* tutorial repository. The steps below outline using the
-[UDF Simulator](https://www.kinetica.com/docs/udf/simulating_udfs.html) with
+[UDF Simulator](https://www.kinetica.com/docs/7.1/udf/simulating_udfs.html) with
 the *UDF* included with the *Python UDF* tutorial repository.
 
 Add the *Python UDF* API directory to the ``PYTHONPATH``:
@@ -113,25 +113,27 @@ Change directory into the newly downloaded *Python UDF* tutorial repository:
 
     cd kinetica-tutorial-python-udf-api/
 
-Run the *UDF* initialization script, specifying the database host and optional
-port (if non-default):
+Run the *UDF* initialization script, optionally specifying the database host
+(if non-default) and username & password:
 
-    python udf_tc_py_init.py <kinetica-host> [<kinetica-port> [<kinetica-user> <kinetica-pass>]]
+    python uudf_tc_py_init.py [--host <kinetica-host> [--username <kinetica-user> --password <kinetica-pass>]]
 
-In the native *Python* API directory, run the *UDF* simulator with the
-following options, ensuring you replace the *Kinetica* URL and port with
-the appropriate values.  Username & password can be specified, if your
-instance requires authentication:
+In the native *Python* API directory, run the *UDF* simulator in ``execute``
+mode with the following options to simulate running the *UDF*, where ``-i``
+is the schema-qualified UDF input table, ``-o`` is the schema-qualified UDF
+output table, and ``-K`` is the *Kinetica* URL (using the appropriate values
+for your environment). Username (``-U``) & password (``-P``) can be
+specified, if your instance requires authentication:
 
-    python ../kinetica-api-python/examples/udfsim.py execute -d \
-         -i udf_tc_py_in_table -o udf_tc_py_out_table \
+     python ../kinetica-api-python/examples/udfsim.py execute -d \
+         -i [<schema>.]<input-table> -o [<schema>.]<output-table> \
          -K http://<kinetica-host>:<kinetica-port> \
          [-U <kinetica-user> -P <kinetica-pass>]
 
 For instance:
 
     python ../kinetica-api-python/examples/udfsim.py execute -d \
-         -i udf_tc_py_in_table -o udf_tc_py_out_table \
+         -i tutorial_udf_python.udf_tc_py_in_table -o tutorial_udf_python.udf_tc_py_out_table \
          -K http://127.0.0.1:9191 \
          -U admin -P admin123
 
@@ -170,7 +172,7 @@ This should output the following:
     No results
     Output:
 
-    udf_tc_py_out_table: 10000 records
+    tutorial_udf_python.udf_tc_py_out_table: 10000 records
 
 Clean the control files output by the *UDF* simulator:
 
@@ -190,25 +192,44 @@ and ``/execute/proc`` (respectively).
 
 Optionally, run the *UDF* init script to reset the example tables:
 
-    python udf_tc_py_init.py <kinetica-host> [<kinetica-port> [<kinetica-user> <kinetica-pass>]]
+    python udf_tc_py_init.py [--host <kinetica-host> [--username <kinetica-user> --password <kinetica-pass>]]
 
 Run the *UDF* execute script:
 
-    python udf_tc_py_exec.py <kinetica-host> [<kinetica-port> [<kinetica-user> <kinetica-pass>]]
+    python udf_tc_py_exec.py [--host <kinetica-host> [--username <kinetica-user> --password <kinetica-pass>]]
 
 
 ## Execution Detail
 
-While the table copy *UDF* can run against multiple tables, the example run
-will use a single table, ``udf_tc_py_in_table``, as input and a similar table,
-``udf_tc_py_out_table``, for output.
+As mentioned previously, this section details a simple distributed *UDF* that
+copies data from one table to another. While the table copy *UDF* can run
+against multiple tables, the example run will use a single schema-qualified
+table, ``tutorial_udf_python.udf_tc_py_in_table``, as input and a similar
+schema-qualified table, ``tutorial_udf_python.udf_tc_py_out_table``, for output.
 
 The input table will contain one *int16* column (``id``) and two *float*
 columns (``x`` and ``y``). The ``id`` column will be an ordered integer field,
 with the first row containing ``1``, the second row containing ``2``, etc. Both
-*float* columns will contain 10,000 pairs of randomly-generated numbers. The
-output table will also contain one *int16* column (``id``) and two *float*
-columns (``a`` and ``b``).
+*float* columns will contain 10,000 pairs of randomly-generated numbers:
+
+    +------+-----------+-----------+
+    | id   | x         | y         |
+    +======+===========+===========+
+    | 1    | 2.57434   | -3.357401 |
+    +------+-----------+-----------+
+    | 2    | 0.0996761 | 5.375546  |
+    +------+-----------+-----------+
+    | ...  | ...       | ...       |
+    +------+-----------+-----------+
+
+The output table will also contain one *int16* column (``id``) and two *float*
+columns (``a`` and ``b``). No data is inserted:
+
+    +------+-----------+-----------+
+    | id   | a         | b         |
+    +======+===========+===========+
+    |      |           |           |
+    +------+-----------+-----------+
 
 The *UDF* will first read from a given CSV file to determine from which
 processing node container and processing node to copy data:
@@ -217,13 +238,13 @@ processing node container and processing node to copy data:
     1,0
     2,0
 
-The ``tom_num`` column values refer to the processing node that contains the
-many shards of data inside the database. The ``rank_num`` column values refer
-to the processing node container that holds the processing nodes for the
-database. For example, the given CSV file determines that the data from
-``udf_tc_py_in_table`` on processing node container ``1``, processing node ``0``
-and processing node container ``2``, processing node ``0`` will be copied to
-``udf_tc_py_out_table``.
+The ``tom_num`` column values refer to processing nodes that contains some of
+the many shards of data inside the database. The ``rank_num`` column values
+refer to processing node containers that hold some of the processing nodes for
+the database. For example, the given CSV file determines that the data from
+``tutorial_udf_python.udf_tc_py_in_table`` on processing node container ``1``, 
+processing node ``0`` and processing node container ``2``, processing node ``0``
+will be copied to ``tutorial_udf_python.udf_tc_py_out_table``.
 
 Once the *UDF* is executed, a *UDF* instance (OS process) is spun up for each
 processing node to execute the given code against its assigned processing node.
@@ -241,7 +262,13 @@ To interact with *Kinetica*, you must first instantiate an object of the
 of the database server.
 
 ```python
-h_db = GPUdb(host=db_host, port=db_port, username=db_user, password=db_pass)
+kinetica = gpudb.GPUdb(host=['http://' + args.host + ':9191'], username=args.username, password=args.password)
+```
+
+The schema is created if it doesn't already exist:
+
+```python
+kinetica.create_schema(SCHEMA, options=OPTION_NO_CREATE_ERROR)
 ```
 
 The input table is created.
@@ -253,13 +280,13 @@ columns = [
     ["y", "float"]
 ]
 
-if h_db.has_table(table_name=INPUT_TABLE)['table_exists']:
-    h_db.clear_table(table_name=INPUT_TABLE)
+if kinetica.has_table(table_name=INPUT_TABLE)['table_exists']:
+    kinetica.clear_table(table_name=INPUT_TABLE)
 
-input_table_obj = GPUdbTable(
+input_table_obj = gpudb.GPUdbTable(
     _type=columns,
     name=INPUT_TABLE,
-    db=h_db
+    db=kinetica
 )
 ```
 
@@ -282,20 +309,26 @@ columns = [
     ["b", "float"]
 ]
 
-if h_db.has_table(table_name=OUTPUT_TABLE)['table_exists']:
-    h_db.clear_table(table_name=OUTPUT_TABLE)
+if kinetica.has_table(table_name=OUTPUT_TABLE)['table_exists']:
+    kinetica.clear_table(table_name=OUTPUT_TABLE)
 
-output_table_obj = GPUdbTable(
+output_table_obj = gpudb.GPUdbTable(
     _type=columns,
     name=OUTPUT_TABLE,
-    db=h_db
-)
+    db=kinetica
+
 ```
 
 
 ### UDF (udf_tc_py_proc.py)
 
-First, the file gets a handle to the ``ProcData()`` class:
+First, the ``csv`` package is imported to access local CSV files:
+
+```python
+import csv
+```
+
+Next, the file gets a handle to the ``ProcData()`` class:
 
 ```python
 proc_data = ProcData()
@@ -361,7 +394,7 @@ of the database server. Ensure the host address and port are correct for your
 setup.
 
 ```python
-h_db = GPUdb(host=db_host, port=db_port, username=db_user, password=db_pass)
+kinetica = gpudb.GPUdb(host=['http://' + args.host + ':9191'], username=args.username, password=args.password)
 ```
 
 To upload the ``udf_tc_py_proc.py`` and ``rank_tom.csv`` files to *Kinetica*,
@@ -381,7 +414,7 @@ proc requires the proper ``command`` and ``args`` to execute the proc, in this
 case, the assembled command line would be ``python udf_tc_py_proc.py``:
 
 ```python
-response = h_db.create_proc(
+response = kinetica.create_proc(
     proc_name=proc_name,
     execution_mode="distributed",
     files=files,
@@ -396,7 +429,7 @@ and output table created in `Initialization (udf_tc_py_init.py)`_ are passed in
 here.
 
 ```python
-response = h_db.execute_proc(
+response = kinetica.execute_proc(
     proc_name=proc_name,
     params={},
     bin_params={},
