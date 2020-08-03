@@ -1,69 +1,93 @@
-import sys
+import argparse
+import gpudb
 import random
-from gpudb import GPUdb, GPUdbTable
+import sys
 
-INPUT_TABLE = 'udf_tc_py_in_table'
-OUTPUT_TABLE = 'udf_tc_py_out_table'
+SCHEMA = 'tutorial_udf_python'
+INPUT_TABLE = SCHEMA + '.udf_tc_py_in_table'
+OUTPUT_TABLE = SCHEMA + '.udf_tc_py_out_table'
 MAX_RECORDS = 10000
 
-
-db_host = sys.argv[1] if len(sys.argv) > 1 else '127.0.0.1'
-db_port = sys.argv[2] if len(sys.argv) > 2 else '9191'
-db_user = sys.argv[3] if len(sys.argv) > 3 else ''
-db_pass = sys.argv[4] if len(sys.argv) > 4 else ''
+OPTION_NO_CREATE_ERROR = {"no_error_if_exists": "true"}
 
 
-print("")
-print("PYTHON UDF TABLE COPY INITIALIZATION")
-print("====================================")
-print("")
+def python_tc_udf_init():
 
-# Connect to Kinetica
-h_db = GPUdb(host=db_host, port=db_port, username=db_user, password=db_pass)
+    print("")
+    print("PYTHON UDF TABLE COPY INITIALIZATION")
+    print("====================================")
+    print("")
 
-# Create input data table
-columns = [
-    ["id", "int", "int16", "primary_key"],
-    ["x", "float"],
-    ["y", "float"]
-]
+    # Create the Python UDF tutorial schema, if it doesn't exist
+    kinetica.create_schema(SCHEMA, options=OPTION_NO_CREATE_ERROR)
 
-if h_db.has_table(table_name=INPUT_TABLE)['table_exists']:
-    h_db.clear_table(table_name=INPUT_TABLE)
+    # Create input data table
+    columns = [
+        ["id", "int", "int16", "primary_key"],
+        ["x", "float"],
+        ["y", "float"]
+    ]
 
-input_table_obj = GPUdbTable(
-    _type=columns,
-    name=INPUT_TABLE,
-    db=h_db
-)
+    if kinetica.has_table(table_name=INPUT_TABLE)['table_exists']:
+        kinetica.clear_table(table_name=INPUT_TABLE)
 
-print("Input table successfully created: ")
-print(input_table_obj)
+    input_table_obj = gpudb.GPUdbTable(
+        _type=columns,
+        name=INPUT_TABLE,
+        db=kinetica
+    )
 
-records = []
-for val in range(1, MAX_RECORDS+1):
-    records.append([val, random.gauss(1, 1), random.gauss(1, 2)])
-input_table_obj.insert_records(records)
+    print("Input table successfully created: ")
+    print(input_table_obj)
 
-print("Number of records inserted into the input table: {}".format(input_table_obj.size()))
+    records = []
+    for val in range(1, MAX_RECORDS+1):
+        records.append([val, random.gauss(1, 1), random.gauss(1, 2)])
+    input_table_obj.insert_records(records)
 
-# Create output data table
-columns = [
-    ["id", "int", "int16", "primary_key"],
-    ["a", "float"],
-    ["b", "float"]
-]
+    print("Number of records inserted into the input table: {}".format(
+        input_table_obj.size()))
 
-if h_db.has_table(table_name=OUTPUT_TABLE)['table_exists']:
-    h_db.clear_table(table_name=OUTPUT_TABLE)
+    # Create output data table
+    columns = [
+        ["id", "int", "int16", "primary_key"],
+        ["a", "float"],
+        ["b", "float"]
+    ]
 
-output_table_obj = GPUdbTable(
-    _type=columns,
-    name=OUTPUT_TABLE,
-    db=h_db
-)
+    if kinetica.has_table(table_name=OUTPUT_TABLE)['table_exists']:
+        kinetica.clear_table(table_name=OUTPUT_TABLE)
 
-print("")
-print("Output table successfully created: ")
-print(output_table_obj)
-print("")
+    output_table_obj = gpudb.GPUdbTable(
+        _type=columns,
+        name=OUTPUT_TABLE,
+        db=kinetica
+    )
+
+    print("")
+    print("Output table successfully created: ")
+    print(output_table_obj)
+    print("")
+
+# end python_tc_udf_init()
+
+
+if __name__ == '__main__':
+
+    # Set up args
+    parser = argparse.ArgumentParser(
+        description='Initialize tables for Python UDF table copy example.')
+    parser.add_argument('--host', default='127.0.0.1',
+                        help='Kinetica host to run example against')
+    parser.add_argument('--username', default='',
+                        help='Username of user to run example with')
+    parser.add_argument('--password', default='', help='Password of user')
+
+    args = parser.parse_args()
+
+    # Establish connection with a locally-running instance of Kinetica
+    kinetica = gpudb.GPUdb(host=['http://' + args.host + ':9191'],
+                           username=args.username, password=args.password)
+
+    # Execute defined functions
+    python_tc_udf_init()
