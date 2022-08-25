@@ -474,7 +474,7 @@ response = kinetica.create_proc(
 ```
 
 Finally, after the UDF is created, it can be executed. The input & output tables
-created in the [Initialization](#initialization-udftcpymanagerpy-init) section are passed
+created in the [Initialization](#initialization-udf_tc_py_managerpy-init) section are passed
 in here:
 
 ```python
