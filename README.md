@@ -4,24 +4,24 @@
 <h5 align="center" style="margin:0px">
 	<a href="https://www.kinetica.com/">Website</a>
 	|
-	<a href="https://docs.kinetica.com/7.1/">Docs</a>
+	<a href="https://docs.kinetica.com/7.2/">Docs</a>
 	|
-	<a href="https://docs.kinetica.com/7.1/api/">API Docs</a>
+	<a href="https://docs.kinetica.com/7.2/api/">API Docs</a>
 	|
 	<a href="https://join.slack.com/t/kinetica-community/shared_invite/zt-1bt9x3mvr-uMKrXlSDXfy3oU~sKi84qg">Community Slack</a>   
 </h5>
 <p align = "center">
-	<img src="https://img.shields.io/badge/tested-%3E=v7.1.7-green"></img>
+	<img src="https://img.shields.io/badge/tested-=v7.2.0-green"></img>
 	<img src="https://img.shields.io/badge/time-15 mins-blue"></img>
 </p>
 
 # Kinetica Python UDF API Tutorial #
 
-This project contains the **7.1** version of the **Python UDF API Tutorial**.
+This project contains the **7.2** version of the **Python UDF API Tutorial**.
 
-This guide exists on-line at:  [Kinetica Python UDF API Tutorial](https://docs.kinetica.com/7.1/guides/udf_python_guide/)
+This guide exists on-line at:  [Kinetica Python UDF API Tutorial](https://docs.kinetica.com/7.2/guides/udf_python_guide/)
 
-More information can be found at:  [Kinetica Documentation](https://docs.kinetica.com/7.1/)
+More information can be found at:  [Kinetica Documentation](https://docs.kinetica.com/7.2/)
 
 -----
 
@@ -51,18 +51,18 @@ of the UDF API.
 
 ## References
 
-* [Python UDF Reference](https://docs.kinetica.com/7.1/udf/python/writing/)
+* [Python UDF Reference](https://docs.kinetica.com/7.2/udf/python/writing/)
   -- detailed description of the entire UDF API
-* [Running UDFs](https://docs.kinetica.com/7.1/udf/python/running/)
+* [Running UDFs](https://docs.kinetica.com/7.2/udf/python/running/)
   -- detailed description on running Python UDFs
-* [Example UDFs](https://docs.kinetica.com/7.1/udf/python/examples/)
+* [Example UDFs](https://docs.kinetica.com/7.2/udf/python/examples/)
   -- example UDFs written in Python
 
 
 ## Prerequisites
 
 The general prerequisites for using UDFs in Kinetica can be found on the
-[UDF Implementation](https://docs.kinetica.com/7.1/udf/) page.
+[UDF Implementation](https://docs.kinetica.com/7.2/udf/) page.
 
 
 ### Program Files
@@ -90,17 +90,17 @@ UDF simulator (details found in [Development](#development)).
 * In the desired directory, run the following to download the Kinetica Python
   UDF tutorial repository:
 
-      git clone -b release/v7.1 --single-branch https://github.com/kineticadb/kinetica-tutorial-python-udf-api.git
+      git clone -b release/v7.2 --single-branch https://github.com/kineticadb/kinetica-tutorial-python-udf-api.git
 
 * In the same directory, run the following to download the Kinetica Python UDF
   API repository:
 
-      git clone -b release/v7.1 --single-branch https://github.com/kineticadb/kinetica-udf-api-python.git
+      git clone -b release/v7.2 --single-branch https://github.com/kineticadb/kinetica-udf-api-python.git
 
 * In the same directory, run the following to download the Kinetica Python API
   repository:
 
-      git clone -b release/v7.1 --single-branch https://github.com/kineticadb/kinetica-api-python.git
+      git clone -b release/v7.2 --single-branch https://github.com/kineticadb/kinetica-api-python.git
 
 * Install the ``pandas`` Python library:
 
@@ -126,9 +126,9 @@ UDF simulator (details found in [Development](#development)).
 ## Development
 
 The steps below outline using the
-[UDF Simulator](https://docs.kinetica.com/7.1/udf/simulating_udfs/),
+[UDF Simulator](https://docs.kinetica.com/7.2/udf/simulating_udfs/),
 included with the Python API. The UDF Simulator simulates the mechanics of
-[execute_proc()](https://docs.kinetica.com/7.1/api/python/?source/gpudb.html#gpudb.GPUdb.execute_proc)
+[execute_proc()](https://docs.kinetica.com/7.2/api/python/?source/gpudb.html#gpudb.GPUdb.execute_proc)
 without actually calling it in the database; this is useful for developing UDFs
 piece-by-piece and test incrementally, avoiding memory ramifications for the
 database.
@@ -214,9 +214,9 @@ database.
 ## Deployment
 
 The UDF can be created and executed using the UDF functions:
-[create_proc()](https://docs.kinetica.com/7.1/api/python/?source/gpudb.html#gpudb.GPUdb.create_proc)
+[create_proc()](https://docs.kinetica.com/7.2/api/python/?source/gpudb.html#gpudb.GPUdb.create_proc)
 and
-[execute_proc()](https://docs.kinetica.com/7.1/api/python/?source/gpudb.html#gpudb.GPUdb.execute_proc)
+[execute_proc()](https://docs.kinetica.com/7.2/api/python/?source/gpudb.html#gpudb.GPUdb.execute_proc)
 (respectively).
 
 * Run the UDF manager script with the ``init`` option to reset the example

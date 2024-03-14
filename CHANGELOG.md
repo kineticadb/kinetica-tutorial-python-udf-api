@@ -2,6 +2,12 @@ Kinetica Python UDF Tutorial Changelog
 ======================================
 
 
+Version 7.2.0 - 2024-03-14
+--------------------------
+
+  - Updating the version to 7.2.0
+
+
 Version 7.1.1 - 2022-08-25
 --------------------------
 
